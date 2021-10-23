@@ -6,7 +6,7 @@ Implementation of some popular Recurrent Image Annotation papers on Corel-5k dat
 ## LSTM 
 ![0](https://user-images.githubusercontent.com/85555218/138563103-f02523b5-f2b7-4a1b-99a7-b448d9d2d031.png)
 
-**LSTM performance in one time step:**
+**Performance of LSTM in one time step:**
 
 ![1](https://user-images.githubusercontent.com/85555218/138563233-703a5348-751d-4b04-ba5a-c8e743dfc65f.gif)
 ![2](https://user-images.githubusercontent.com/85555218/138563236-2c11bad0-b7d2-4ac3-87cf-4fd59112a870.gif)
@@ -14,6 +14,8 @@ Implementation of some popular Recurrent Image Annotation papers on Corel-5k dat
 ![4](https://user-images.githubusercontent.com/85555218/138563238-517344f7-b653-42ca-b831-30a28398c16d.gif)
 
 ## CNN+LSTM models
+
+## loss function
 
 ## conclusions
 
