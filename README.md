@@ -46,12 +46,12 @@ I've used per-class (per-label) and per-image (overall) precision, recall, f1-sc
   
 | data | precision | recall | f1-score |
 | :------------: | :------------: | :------------: | :------------: |
-| *testset* per-image metrics | 0.633  | 0.630 | 0.631 | 
-| *testset* per-class metrics | 0.412 | 0.436 | **0.423** |
+| *testset* per-image metrics | 0.640  | 0.640 | 0.640 | 
+| *testset* per-class metrics | 0.412 | 0.458 | **0.434** |
 
 | data | N+ |
 | :------------: | :------------: |
-| *testset* | 157 |
+| *testset* | 161 |
 
 ## Conclusions
 
