@@ -24,10 +24,16 @@ Implementation of some popular Recurrent Image Annotation papers on Corel-5k dat
 ## CNN+LSTM models
 <div align="justify"> 
 1) RIA: <br >
-RIA is an encoder-decoder model that uses CNN as an encoder and LSTM as a decoder. In the training phase, it is trained using training images and human annotations. During the test phase, the RIA model predicts the first output label after receiving the input image and being triggered by the <b>start</b> signal. Using the previous output as input for the next time step, it predicts the tag sequence recursively. The loop will continue until the <b>stop</b> signal is predicted. Its structure for the test phase is shown in the images below: </div>
+RIA is an encoder-decoder model that uses CNN as an encoder and LSTM as a decoder. In the training phase, it is trained using training images and human annotations. It is necessary to sort the label set as a label sequence before using the annotations as the input for LSTM. A <b>rare-first</b> order is used, which put the rarer label before the more frequent ones (based on label frequency in the dataset). During the test phase, the RIA model predicts the first output label after receiving the input image and being triggered by the <b>start</b> signal. Using the previous output as input for the next time step, it predicts the tag sequence recursively. The loop will continue until the <b>stop</b> signal is predicted. Its structure for the test phase is shown in the images below: </div>
 
-![RIA](https://user-images.githubusercontent.com/85555218/201467303-9f61fb86-0389-43a4-9d1b-e0ced7e592b2.jpg)
-<div align="justify"> The labels are mapped to embedding vectors by using lookup tables instead of one-hot vectors. The lookup table can be trained and learn what kind of representation to generate. However, experiments have shown that using pre-trained weights like the GloVe embedding weights provide better results. </div>
+![RIA](https://user-images.githubusercontent.com/85555218/201529357-3ddd0597-547b-43eb-8a24-78a305d62cb6.jpg)
+<div align="justify"> The labels are mapped to embedding vectors by using lookup tables instead of one-hot vectors. The lookup table can be trained and learn what kind of representation to generate. However, experiments have shown that using pre-trained weights like the GloVe embedding weights provide better results. </div> <br >
+
+<div align="justify"> 
+2) SR-CNN-RNN: <br >
+SR-CNN-RNN is another encoder-decoder model that has a similar architecture to RIA. The differences between them are that semantic concept learning is now done by the CNN model, which uses input images to generate a probabilistic estimate of semantic concepts. In order to generate label sequences, the RNN model takes the concept of probability estimates and models their correlations. Its structure for the test phase is shown in the images below: </div>
+
+![SR-CNN-RNN](https://user-images.githubusercontent.com/85555218/201529366-83c4b665-2349-4dde-8130-598407e2d333.jpg)
 
 ## Evaluation Metrics
 <div align="justify"> Precision, Recall, F1-score, and N+ are the most popular metrics for evaluating different models in image annotation tasks.
@@ -40,7 +46,22 @@ I've used per-class (per-label) and per-image (overall) precision, recall, f1-sc
 ## Results
 <div align="justify"> 1) RIA: </div>
 
-| batch-size | num of training images | image-size | epoch time | GloVe weights | image embedding dim | label embedding dim 
+| batch-size | num of training images | image-size | epoch time | GloVe weights | features embedding dim | label embedding dim 
+| :------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: |
+| 32 | 4500 | 448 * 448 | 140s | True | 2048 | 300 |
+  
+| data | precision | recall | f1-score |
+| :------------: | :------------: | :------------: | :------------: |
+| *testset* per-image metrics | 0.640  | 0.640 | 0.640 | 
+| *testset* per-class metrics | 0.412 | 0.458 | **0.434** |
+
+| data | N+ |
+| :------------: | :------------: |
+| *testset* | 161 |
+
+<div align="justify"> 2) SR-CNN-RNN: </div>
+
+| batch-size | num of training images | image-size | epoch time | GloVe weights | predicted labels embedding dim | label embedding dim 
 | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: |
 | 32 | 4500 | 448 * 448 | 140s | True | 2048 | 300 |
   
