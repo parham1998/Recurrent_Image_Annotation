@@ -59,7 +59,9 @@ I've used per-class (per-label) and per-image (overall) precision, recall, f1-sc
 | :------------: | :------------: |
 | *testset* | 161 |
 
-<div align="justify"> 2) SR-CNN-RNN: </div>
+<div align="justify"> 2) SR-CNN-RNN: 
+The CNN and LSTM models were pre-trained with ground truth labels separately, as mentioned in the paper.
+</div>
 
 | batch-size | num of training images | image-size | epoch time | GloVe weights | predicted labels embedding dim | label embedding dim 
 | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: |
@@ -67,12 +69,12 @@ I've used per-class (per-label) and per-image (overall) precision, recall, f1-sc
   
 | data | precision | recall | f1-score |
 | :------------: | :------------: | :------------: | :------------: |
-| *testset* per-image metrics | 0.640  | 0.640 | 0.640 | 
-| *testset* per-class metrics | 0.412 | 0.458 | **0.434** |
+| *testset* per-image metrics | 0.680  | 0.616 | 0.646 | 
+| *testset* per-class metrics | 0.405 | 0.391 | **0.398** |
 
 | data | N+ |
 | :------------: | :------------: |
-| *testset* | 161 |
+| *testset* | 145 |
 
 ## Conclusions
 
