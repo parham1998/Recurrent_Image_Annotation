@@ -35,6 +35,13 @@ SR-CNN-RNN is another encoder-decoder model that has a similar architecture to R
 
 ![SR-CNN-RNN](https://user-images.githubusercontent.com/85555218/201529366-83c4b665-2349-4dde-8130-598407e2d333.jpg)
 
+<div align="justify"> 
+3) CNN-RNN + Attention: <br >
+Attention networks are widely used in deep learning. Models can use them to determine which parts of the encoding are relevant to the related task. Using the attention mechanism, pixels with more importance can be highlighted in image annotation. In most cases, labels are conceptual and cannot be annotated by the objects that appear in the image. Therefore, the attention mechanism is not able to improve results significantly. Its structure for the test phase is shown in the images below: </div>
+
+![Attention](https://user-images.githubusercontent.com/85555218/203550694-5b899e1e-b8b1-4cab-ac9c-9fdd59b4fd8f.jpg)
+<b> Inspired by [Image Captioning](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning) </b> 
+
 ## Evaluation Metrics
 <div align="justify"> Precision, Recall, F1-score, and N+ are the most popular metrics for evaluating different models in image annotation tasks.
 I've used per-class (per-label) and per-image (overall) precision, recall, f1-score, and also N+ which are common in image annotation papers. </div>
@@ -48,16 +55,16 @@ I've used per-class (per-label) and per-image (overall) precision, recall, f1-sc
 
 | batch-size | num of training images | image-size | epoch time | GloVe weights | features embedding dim | label embedding dim 
 | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: |
-| 32 | 4500 | 448 * 448 | 140s | True | 2048 | 300 |
+| 32 | 4500 | 448 * 448 | 136s | True | 2048 | 300 |
   
 | data | precision | recall | f1-score |
 | :------------: | :------------: | :------------: | :------------: |
-| *testset* per-image metrics | 0.640  | 0.640 | 0.640 | 
-| *testset* per-class metrics | 0.412 | 0.458 | **0.434** |
+| *testset* per-image metrics | 0.640  | 0.609 | 0.624 | 
+| *testset* per-class metrics | 0.410 | 0.393 | **0.401** |
 
 | data | N+ |
 | :------------: | :------------: |
-| *testset* | 161 |
+| *testset* | 152 |
 
 <div align="justify"> 2) SR-CNN-RNN: 
 The CNN and LSTM models were pre-trained with ground truth labels separately, as mentioned in the paper.
@@ -65,7 +72,7 @@ The CNN and LSTM models were pre-trained with ground truth labels separately, as
 
 | batch-size | num of training images | image-size | epoch time | GloVe weights | predicted labels embedding dim | label embedding dim 
 | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: |
-| 32 | 4500 | 448 * 448 | 140s | True | 2048 | 300 |
+| 32 | 4500 | 448 * 448 | 135s | True | 2048 | 300 |
   
 | data | precision | recall | f1-score |
 | :------------: | :------------: | :------------: | :------------: |
@@ -76,6 +83,21 @@ The CNN and LSTM models were pre-trained with ground truth labels separately, as
 | :------------: | :------------: |
 | *testset* | 145 |
 
+<div align="justify"> 2) CNN-RNN + Attention: </div>
+
+| batch-size | num of training images | image-size | epoch time | GloVe weights | features embedding dim | attention dim | label embedding dim 
+| :------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: |
+| 32 | 4500 | 448 * 448 | 150s | True | 2048 | 1024 | 300 |
+  
+| data | precision | recall | f1-score |
+| :------------: | :------------: | :------------: | :------------: |
+| *testset* per-image metrics | 0.663  | 0.616 | 0.638 | 
+| *testset* per-class metrics | 0.438 | 0.429 | **0.434** |
+
+| data | N+ |
+| :------------: | :------------: |
+| *testset* | 160 |
+
 ## Conclusions
 
 ## References
@@ -84,6 +106,9 @@ J. Jin, and H. Nakayama. <br />
 
 F. Liu, T. Xiang, T. M Hospedales, W. Yang, and C. Sun. <br />
 *"Semantic Regularisation for Recurrent Image Annotation"* (CVPR-2017)
+
+V. O. Yazici, A. Gonzalez-Garcia, A. Ramisa, B. Twardowski, and J. van de Weijer <br />
+*"Orderless Recurrent Models for Multi-label Classification"* (CVPR-2020)
 
 A. Dutta, Y. Verma, and C.V. Jawahar. <br />
 *"Recurrent Image Annotation With Explicit Inter-Label Dependencies"* (ECCV-2020)
