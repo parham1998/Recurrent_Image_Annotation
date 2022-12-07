@@ -42,6 +42,20 @@ Attention networks are widely used in deep learning. Models can use them to dete
 ![Attention](https://user-images.githubusercontent.com/85555218/203550694-5b899e1e-b8b1-4cab-ac9c-9fdd59b4fd8f.jpg)
 <b> Inspired by [Image Captioning](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning) </b> 
 
+<b> Some examples of attention: </b>
+![1](https://user-images.githubusercontent.com/85555218/206273788-b8cdd35e-7eff-4bf3-ba76-02c7438f228e.png)
+![2](https://user-images.githubusercontent.com/85555218/206273810-b31802ed-b237-4f0d-b6bb-f6b1a8976f70.png)
+![3](https://user-images.githubusercontent.com/85555218/206273820-6c0d9f6f-1109-4d09-805f-124582c4bad7.png)
+
+<div align="justify">
+4) CNN-RNN + Attention + MLA: <br >
+It has been proposed to align the labels to the predictions of the network before computing the loss to reduce the problems caused by imposing a fixed order on the labels. A Hungarian algorithm can be used to solve the minimization problem since it is an assignment problem. So by preserving the attention architecture, we utilize minimal loss alignment (MLA) as the loss function instead of cross-entropy loss. (Furthermore, the frequency of a label is independent of the size of a given object in a dataset. Less frequent but larger objects can cause the LSTM prediction to stop earlier because of their domination in the image and their ranking in the prediction step.) </div>
+
+## Beam Search
+<div align="justify">
+Choosing the word with the highest score and predicting the next word would be the greedy approach. However, this isn't optimal since the rest of the sequence depends on the first word. It isn't just the first word that determines whether the process is optimal or not; each word in the sequence has consequences for the words following it. (The best sequence might be like this: The third best word might have been selected at the first step, the second best word at the second step, and so on.) <br >
+The beam search can be used instead of greedy searches to resolve this issue. However, experiments have shown that the RNN model cannot learn the complicated relationships between labels properly, and using beam search won't have any effect on the result. </div>
+
 ## Evaluation Metrics
 <div align="justify"> Precision, Recall, F1-score, and N+ are the most popular metrics for evaluating different models in image annotation tasks.
 I've used per-class (per-label) and per-image (overall) precision, recall, f1-score, and also N+ which are common in image annotation papers. </div>
@@ -49,6 +63,47 @@ I've used per-class (per-label) and per-image (overall) precision, recall, f1-sc
 (check out [CNN_Image_Annotation_evaluation_metrics](https://github.com/parham1998/CNN_Image_Annotaion#evaluation-metrics) for more information)
 
 ## Train and Evaluation
+To train and evaluate models in Spyder IDE use the codes below:
+
+<div align="justify"> 1) RIA: </div>
+
+```python
+run main.py --method RIA --max-seq-len 5 --order-free None --is_glove --sort
+```
+
+```python
+run main.py --method RIA --max-seq-len 5 --order-free None --is_glove --evaluate
+```
+
+<div align="justify"> 2) SR-CNN-RNN: </div>
+
+```python
+run main.py --method SR-CNN-RNN --max-seq-len 5 --order-free None --is_glove --sort
+```
+
+```python
+run main.py --method SR-CNN-RNN --max-seq-len 5 --order-free None --is_glove --evaluate
+```
+
+<div align="justify"> 3) CNN-RNN + Attention: </div>
+
+```python
+run main.py --method Attention --max-seq-len 5 --order-free None --is_glove --sort
+```
+
+```python
+run main.py --method Attention --max-seq-len 5 --order-free None --is_glove --evaluate
+```
+
+<div align="justify"> 4) CNN-RNN + Attention + MLA: </div>
+
+```python
+run main.py --method Attention --max-seq-len 5 --order-free MLA --is_glove
+```
+
+```python
+run main.py --method Attention --max-seq-len 5 --order-free MLA --is_glove --evaluate
+```
 
 ## Results
 <div align="justify"> 1) RIA: </div>
@@ -59,12 +114,12 @@ I've used per-class (per-label) and per-image (overall) precision, recall, f1-sc
   
 | data | precision | recall | f1-score |
 | :------------: | :------------: | :------------: | :------------: |
-| *testset* per-image metrics | 0.640  | 0.609 | 0.624 | 
-| *testset* per-class metrics | 0.410 | 0.393 | **0.401** |
+| *testset* per-image metrics | 0.647  | 0.606 | 0.626 | 
+| *testset* per-class metrics | 0.409 | 0.421 | **0.415** |
 
 | data | N+ |
 | :------------: | :------------: |
-| *testset* | 152 |
+| *testset* | 156 |
 
 <div align="justify"> 2) SR-CNN-RNN: 
 The CNN and LSTM models were pre-trained with ground truth labels separately, as mentioned in the paper.
@@ -83,7 +138,7 @@ The CNN and LSTM models were pre-trained with ground truth labels separately, as
 | :------------: | :------------: |
 | *testset* | 145 |
 
-<div align="justify"> 2) CNN-RNN + Attention: </div>
+<div align="justify"> 3) CNN-RNN + Attention: </div>
 
 | batch-size | num of training images | image-size | epoch time | GloVe weights | features embedding dim | attention dim | label embedding dim 
 | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: |
@@ -98,7 +153,20 @@ The CNN and LSTM models were pre-trained with ground truth labels separately, as
 | :------------: | :------------: |
 | *testset* | 160 |
 
-## Conclusions
+<div align="justify"> 4) CNN-RNN + Attention + MLA: </div>
+
+| batch-size | num of training images | image-size | epoch time | GloVe weights | features embedding dim | attention dim | label embedding dim 
+| :------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: |
+| 32 | 4500 | 448 * 448 | 158s | True | 2048 | 1024 | 300 |
+  
+| data | precision | recall | f1-score |
+| :------------: | :------------: | :------------: | :------------: |
+| *testset* per-image metrics | 0.656  | 0.608 | 0.632 | 
+| *testset* per-class metrics | 0.449 | 0.413 | **0.431** |
+
+| data | N+ |
+| :------------: | :------------: |
+| *testset* | 155 |
 
 ## References
 J. Jin, and H. Nakayama. <br />
@@ -109,6 +177,3 @@ F. Liu, T. Xiang, T. M Hospedales, W. Yang, and C. Sun. <br />
 
 V. O. Yazici, A. Gonzalez-Garcia, A. Ramisa, B. Twardowski, and J. van de Weijer <br />
 *"Orderless Recurrent Models for Multi-label Classification"* (CVPR-2020)
-
-A. Dutta, Y. Verma, and C.V. Jawahar. <br />
-*"Recurrent Image Annotation With Explicit Inter-Label Dependencies"* (ECCV-2020)
