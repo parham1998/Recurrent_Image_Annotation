@@ -26,20 +26,18 @@ Implementation of some popular Recurrent Image Annotation papers on Corel-5k dat
 1) RIA: <br >
 RIA is an encoder-decoder model that uses CNN as an encoder and LSTM as a decoder. In the training phase, it is trained using training images and human annotations. It is necessary to sort the label set as a label sequence before using the annotations as the input for LSTM. A <b>rare-first</b> order is used, which put the rarer label before the more frequent ones (based on label frequency in the dataset). During the test phase, the RIA model predicts the first output label after receiving the input image and being triggered by the <b>start</b> signal. Using the previous output as input for the next time step, it predicts the tag sequence recursively. The loop will continue until the <b>stop</b> signal is predicted. Its structure for the test phase is shown in the images below: </div>
 
-![RIA](https://user-images.githubusercontent.com/85555218/201529357-3ddd0597-547b-43eb-8a24-78a305d62cb6.jpg)
+![lstm1](https://github.com/parham1998/Recurrent_Image_Annotation/assets/85555218/f0322277-f242-4691-9f49-c5b01607c7ba)
 <div align="justify"> The labels are mapped to embedding vectors by using lookup tables instead of one-hot vectors. The lookup table can be trained and learn what kind of representation to generate. However, experiments have shown that using pre-trained weights like the GloVe embedding weights provide better results. </div> <br >
 
 <div align="justify"> 
 2) SR-CNN-RNN: <br >
-SR-CNN-RNN is another encoder-decoder model that has a similar architecture to RIA. The differences between them are that semantic concept learning is now done by the CNN model, which uses input images to generate a probabilistic estimate of semantic concepts. In order to generate label sequences, the RNN model takes the concept of probability estimates and models their correlations. Its structure for the test phase is shown in the images below: </div>
-
-![SR-CNN-RNN](https://user-images.githubusercontent.com/85555218/201529366-83c4b665-2349-4dde-8130-598407e2d333.jpg)
+SR-CNN-RNN is another encoder-decoder model that has a similar architecture to RIA. The differences between them are that semantic concept learning is now done by the CNN model, which uses input images to generate a probabilistic estimate of semantic concepts. In order to generate label sequences, the RNN model takes the concept of probability estimates and models their correlations. </div> <br >
 
 <div align="justify"> 
 3) CNN-RNN + Attention: <br >
 Attention networks are widely used in deep learning. Models can use them to determine which parts of the encoding are relevant to the related task. Using the attention mechanism, pixels with more importance can be highlighted in image annotation. In most cases, labels are conceptual and cannot be annotated by the objects that appear in the image. Therefore, the attention mechanism is not able to improve results significantly. Its structure for the test phase is shown in the images below: </div>
 
-![Attention](https://user-images.githubusercontent.com/85555218/203550694-5b899e1e-b8b1-4cab-ac9c-9fdd59b4fd8f.jpg)
+![lstm2](https://github.com/parham1998/Recurrent_Image_Annotation/assets/85555218/9a4cf556-4268-461c-8f6e-86b03070b43a)
 <b> Inspired by [Image Captioning](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning) </b> 
 
 <b> Some examples of attention: </b>
