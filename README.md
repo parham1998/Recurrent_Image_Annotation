@@ -26,7 +26,7 @@ Implementation of some popular Recurrent Image Annotation papers on Corel-5k dat
 1) RIA: <br >
 RIA is an encoder-decoder model that uses CNN as an encoder and LSTM as a decoder. In the training phase, it is trained using training images and human annotations. It is necessary to sort the label set as a label sequence before using the annotations as the input for LSTM. A <b>rare-first</b> order is used, which put the rarer label before the more frequent ones (based on label frequency in the dataset). During the test phase, the RIA model predicts the first output label after receiving the input image and being triggered by the <b>start</b> signal. Using the previous output as input for the next time step, it predicts the tag sequence recursively. The loop will continue until the <b>stop</b> signal is predicted. Its structure for the test phase is shown in the images below: </div>
 
-![lstm1](https://github.com/parham1998/Recurrent_Image_Annotation/assets/85555218/f0322277-f242-4691-9f49-c5b01607c7ba)
+![lstm1](https://github.com/parham1998/Recurrent_Image_Annotation/assets/85555218/6f6cd9e4-584e-4dfe-ad63-789a17330fb1)
 <div align="justify"> The labels are mapped to embedding vectors by using lookup tables instead of one-hot vectors. The lookup table can be trained and learn what kind of representation to generate. However, experiments have shown that using pre-trained weights like the GloVe embedding weights provide better results. </div> <br >
 
 <div align="justify"> 
@@ -37,7 +37,7 @@ SR-CNN-RNN is another encoder-decoder model that has a similar architecture to R
 3) CNN-RNN + Attention: <br >
 Attention networks are widely used in deep learning. Models can use them to determine which parts of the encoding are relevant to the related task. Using the attention mechanism, pixels with more importance can be highlighted in image annotation. In most cases, labels are conceptual and cannot be annotated by the objects that appear in the image. Therefore, the attention mechanism is not able to improve results significantly. Its structure for the test phase is shown in the images below: </div>
 
-![lstm2](https://github.com/parham1998/Recurrent_Image_Annotation/assets/85555218/9a4cf556-4268-461c-8f6e-86b03070b43a)
+![lstm2](https://github.com/parham1998/Recurrent_Image_Annotation/assets/85555218/c28767ae-df8d-4dad-89cf-681eb5536250)
 <b> Inspired by [Image Captioning](https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Image-Captioning) </b> 
 
 <b> Some examples of attention: </b>
